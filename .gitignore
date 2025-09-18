@@ -1,0 +1,90 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Rails API specific (apps/api)
+apps/api/log/*
+!apps/api/log/.keep
+apps/api/tmp/*
+!apps/api/tmp/.keep
+apps/api/storage/*
+!apps/api/storage/.keep
+apps/api/public/system
+apps/api/public/uploads
+apps/api/coverage/
+apps/api/.byebug_history
+apps/api/.ruby-version
+apps/api/vendor/bundle
+apps/api/.bundle
+apps/api/config/master.key
+apps/api/config/credentials/*.key
+
+# Next.js specific (apps/web)
+apps/web/.next/
+apps/web/out/
+apps/web/build/
+apps/web/.env*.local
+apps/web/.vercel
+
+# Node.js dependencies (shared)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ruby version and gems
+.ruby-version
+.rbenv-version
+.rvmrc
+Gemfile.lock
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs and cache
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Logs
+*.log
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+.jest-cache/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database
+*.sqlite3
+*.sqlite3-*
+
+# Ruby LSP
+.ruby-lsp/
