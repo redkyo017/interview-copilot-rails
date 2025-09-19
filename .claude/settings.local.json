@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rbenv:*)",
+      "Bash(ruby --version)",
+      "Bash(brew:*)",
+      "Bash(brew upgrade:*)",
+      "Bash(export:*)",
+      "Read(//usr/local/Cellar/openssl@3/3.5.2/**)",
+      "Read(//private/var/folders/**)",
+      "Read(//var/folders/lg/k9gr5xbd26s__8bp5159yrkw0000gn/T/ruby-build.20250919090149.46795.IQuLGd/ruby-3.3.9/ext/openssl/**)",
+      "Bash(RUBY_CONFIGURE_OPTS=\"--without-openssl --disable-install-doc\" rbenv install 3.4.6)",
+      "Bash(RUBY_CONFIGURE_OPTS=\"--without-openssl --without-psych --disable-install-doc\" rbenv install 3.3.9)",
+      "Bash(gem install:*)",
+      "Bash(gem --version)",
+      "Bash(RUBY_CONFIGURE_OPTS=\"--with-openssl-dir=/usr/local/opt/openssl@3 --with-libyaml-dir=/usr/local/opt/libyaml\" LDFLAGS=\"-L/usr/local/opt/openssl@3/lib -L/usr/local/opt/libyaml/lib\" CPPFLAGS=\"-I/usr/local/opt/openssl@3/include -I/usr/local/opt/libyaml/include\" PKG_CONFIG_PATH=\"/usr/local/opt/openssl@3/lib/pkgconfig:/usr/local/opt/libyaml/lib/pkgconfig\" rbenv install 3.3.9)",
+      "Bash(rvm implode:*)",
+      "Bash(unset rvm_path)",
+      "Bash(unset rvm_scripts_path)",
+      "Bash(unset rvm_ruby_string)",
+      "Bash(hash -r)",
+      "Bash(RUBY_CONFIGURE_OPTS=\"--disable-install-doc\" rbenv install 3.3.9)",
+      "Bash(bundle --version)",
+      "Bash(bundle install)",
+      "Bash(cat:*)",
+      "Bash(ruby:*)",
+      "Bash(echo $PATH)",
+      "Bash(command:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
