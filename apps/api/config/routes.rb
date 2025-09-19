@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :ingests, only: [:create, :show]
     resources :queries, only: [:create]
+    resources :documents, only: [:index]
   end
   get "/health", to: proc { [200, {"Content-Type"=>"application/json"}, [{ok: true}.to_json]] }
 
