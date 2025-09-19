@@ -39,7 +39,9 @@
       "Read(//var/folders/**)",
       "Read(//Users/hunghd/git_clone/interview-copilot-rails/**)",
       "Bash(bundle exec rspec:*)",
-      "Bash(rails:*)"
+      "Bash(rails:*)",
+      "Bash(bundle exec:*)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

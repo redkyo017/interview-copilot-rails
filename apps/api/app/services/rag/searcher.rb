@@ -10,6 +10,9 @@ module Rag
         # raw SQL for cosine distance ordering
         # .select("embeddings.*, 1 - (embeddings.vector <=> '#{PG::Connection.escape_string(q_vec.pack('F*'))}'::vector) AS sim")
         # .order("embeddings.vector <=> '#{PG::Connection.escape_string(q_vec.pack('F*'))}'::vector ASC")
+        # 
+        # select("embeddings.*, 1 - (embeddings.vector <=> $1::vector) AS sim", q_vec)
+        # .order(Arel.sql("embeddings.vector <=> $1::vector ASC"), q_vec)
         .nearest_neighbors(:vector, q_vec, distance: "cosine")
         .limit(TOP_K)
 
