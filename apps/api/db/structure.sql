@@ -46,10 +46,10 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.documents (
     id bigint NOT NULL,
-    title character varying,
-    kind character varying,
-    text text,
-    chunks_json jsonb,
+    title character varying NOT NULL,
+    kind character varying NOT NULL,
+    text text NOT NULL,
+    chunks_json jsonb DEFAULT '[]'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -84,7 +84,7 @@ CREATE TABLE public.embeddings (
     chunk_index integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    vector public.vector
+    vector public.vector(1536)
 );
 
 
@@ -163,10 +163,31 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: index_documents_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_documents_on_kind ON public.documents USING btree (kind);
+
+
+--
 -- Name: index_embeddings_on_document_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_embeddings_on_document_id ON public.embeddings USING btree (document_id);
+
+
+--
+-- Name: index_embeddings_on_document_id_and_chunk_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_embeddings_on_document_id_and_chunk_index ON public.embeddings USING btree (document_id, chunk_index);
+
+
+--
+-- Name: index_embeddings_on_vector; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_embeddings_on_vector ON public.embeddings USING ivfflat (vector public.vector_cosine_ops) WITH (lists='100');
 
 
 --
@@ -184,6 +205,8 @@ ALTER TABLE ONLY public.embeddings
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250919055348'),
+('20250919054520'),
 ('20250918164329'),
 ('20250918164301'),
 ('20250918163614'),

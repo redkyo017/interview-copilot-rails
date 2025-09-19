@@ -37,7 +37,8 @@
       "Read(//usr/local/Cellar/openssl@3/3.5.2/**)",
       "Read(//private/var/folders/**)",
       "Read(//var/folders/**)",
-      "Read(//Users/hunghd/git_clone/interview-copilot-rails/**)"
+      "Read(//Users/hunghd/git_clone/interview-copilot-rails/**)",
+      "Bash(bundle exec rspec:*)"
     ],
     "deny": [],
     "ask": []

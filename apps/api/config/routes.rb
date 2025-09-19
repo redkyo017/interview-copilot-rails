@@ -7,4 +7,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  namespace :api do
+    resources :ingests, only: [:create]
+    resources :queries, only: [:create]
+  end
+  get "/health", to: proc { [200, {"Content-Type"=>"application/json"}, [{ok: true}.to_json]] }
 end
