@@ -5,24 +5,17 @@ module Rag
     def self.query(question:)
       q_vec = Rag::Embedder.embed([question]).first
       # Use neighbor gem for vector similarity search
+      q_vec_array = "[#{q_vec.join(',')}]"
+
       rows = Embedding
         .joins(:document)
-        # raw SQL for cosine distance ordering
-        # .select("embeddings.*, 1 - (embeddings.vector <=> '#{PG::Connection.escape_string(q_vec.pack('F*'))}'::vector) AS sim")
-        # .order("embeddings.vector <=> '#{PG::Connection.escape_string(q_vec.pack('F*'))}'::vector ASC")
-        # 
-        # select("embeddings.*, 1 - (embeddings.vector <=> $1::vector) AS sim", q_vec)
-        # .order(Arel.sql("embeddings.vector <=> $1::vector ASC"), q_vec)
-        # .nearest_neighbors(:vector, q_vec, distance: "cosine")
-        # .limit(TOP_K)
-        .select(
+        .select(Arel.sql(
           "embeddings.*, " \
-          "1 - (embeddings.vector <=> $1::vector) AS cosine, " \
+          "1 - (embeddings.vector <=> '#{q_vec_array}'::vector) AS cosine, " \
           "documents.title AS doc_title, documents.kind AS doc_kind, documents.chunks_json"
-        )
-        .order(Arel.sql("embeddings.vector <=> $1::vector ASC"), q_vec)
+        ))
+        .order(Arel.sql("embeddings.vector <=> '#{q_vec_array}'::vector ASC"))
         .limit(TOP_K)
-        .bind([nil, q_vec])  # parameter binding (ActiveRecord >=7 supports bind)
 
       candidates = rows.map do |e|
         chunk_txt = (e.chunks_json || [])[e.chunk_index] || ""
@@ -42,7 +35,7 @@ module Rag
       #   { doc_id: e.document_id, chunk_index: e.chunk_index, title: e.document.title, kind: e.document.kind }
       # end
       {
-        answer: "Stubbed synthesis over #{sources.size} chunks.",
+        answer: "Stubbed synthesis over #{reranked.size} chunks.",
         # sources: sources
         sources: reranked.map { |c|
           { doc_id: c[:doc_id], title: c[:title], kind: c[:kind], chunk_index: c[:chunk_index],
